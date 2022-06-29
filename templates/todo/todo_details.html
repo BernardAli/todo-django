@@ -1,0 +1,38 @@
+{% extends '_partials/_base.html' %}
+{% load static %}
+
+{% block title %}
+    Details
+{% endblock %}
+
+
+{% block content %}
+    <h2>Todo Details</h2>
+    {% include '_partials/messages.html' %}
+    <div class="ui cards">
+      <div class="card">
+        <div class="content">
+          <img class="right floated mini ui image" src="{% static 'img/logo.png' %}">
+          <div class="header">
+            {{ todo.title }}
+          </div>
+          <div class="meta">
+            {{ todo.created_at }}
+          </div>
+          <div class="description">
+            {{ todo.description }}
+          </div>
+            <div class="meta">
+                {% if todo.is_completed  %} <i class="check icon green"></i> Completed {{ todo.updated_at }}
+                {% endif %}
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui two buttons">
+              <a href="{% url 'todo_edit' todo.pk %}" class="ui basic green button">Edit</a>
+              <a href="{% url 'todo_delete' todo.id%}" class="ui basic red button">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

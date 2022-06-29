@@ -1,0 +1,59 @@
+{% extends '_partials/_base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block content %}
+    <h2 class="ui header">Todo Lists</h2>
+    {% include '_partials/messages.html' %}
+    {% if todos %}
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Completed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    <tr>
+                        <td>{{ todo.title }}</td>
+                        <td>{{ todo.description }}</td>
+                        <td>{% if todo.is_completed %}
+                                YES <i class="check icon green"></i>
+                            {% else %}
+                                NO
+                            {% endif%}
+                        </td>
+                        <td>
+                            <a href="{% url 'todo_detail' todo.pk %}">
+                                <i class="eye yellow icon"></i>
+                            </a>
+                            <a href="{% url 'todo_edit' todo.pk %}">
+                                <i class="pencil icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th><a href="?filter=all">{{all_count}} All</a></th>
+                    <th><a href="?filter=completed">{{completed_count}} Completed</a></th>
+                    <th><a href="?filter=incomplete">{{incomplete_count}} Remaining</a></th>
+                </tr>
+            </tfoot>
+        </table>
+    {% else %}
+        <div class="ui message">
+            <div class="header">
+                No items yet
+            </div>
+            <p>You can create your first todo now <a href="{% url 'create_todo' %}">Add New</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

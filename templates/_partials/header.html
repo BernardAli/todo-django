@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="ui menu">
+    <a href="{% url 'home' %}" class="header item"><img src="{% static 'img/logo.png' %}" alt=""></a>
+  <div class="right menu">
+      {% if user.is_authenticated %}
+        <a class="item">{{ user.username }}</a>
+        <a class="item" href="{% url 'create_todo' %}">+ New</a>
+        <div class="item">
+            <form action="{% url 'logout_user' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Logout" class="ui primary button">
+            </form>
+        </div>
+      {% else %}
+        <div class="item">
+            <a href="{% url 'login' %}" class="ui primary button">Login</a>
+        </div>
+        <div class="item">
+            <a href="{% url 'register' %}" class="ui primary button">Register</a>
+        </div>
+      {% endif %}
+
+  </div>
+</div>
